@@ -5,6 +5,9 @@
  * Author : Jørgen Benum
  */ 
 
+
+// Simon var her
+
 #include <avr/io.h>
 
 
@@ -14,6 +17,8 @@ int main(void)
 	
 	ADMUX = 0b01000001;		// første to bit: bruker AVCC som referanse, men krever ekstern kondensator at AREF pin for å redusere støy
 							// siste fire bit velger ADC1 altså  PC1
+							
+							
 			
 			
 							
