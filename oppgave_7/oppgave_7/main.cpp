@@ -6,8 +6,12 @@
  */ 
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
-
+ISR(TIMER1_COMPA_vect)
+{
+	PORTB = 0x00;
+}
 
 int main(void)
 {
