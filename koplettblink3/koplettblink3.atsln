@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "koplettblink3", "koplettblink3\koplettblink3.cppproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "komplettblink2", "..\komplettblink2\komplettblink2\komplettblink2.cppproj", "{C89BED71-7CC7-48C0-A4F8-81365F858E83}"
+EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "komplettblink", "..\komplettblink\komplettblink\komplettblink.cppproj", "{A9BC87A1-9D82-4AA3-B634-3BCE2EFCCE66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|AVR.Build.0 = Debug|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.ActiveCfg = Release|AVR
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|AVR.Build.0 = Release|AVR
+		{C89BED71-7CC7-48C0-A4F8-81365F858E83}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C89BED71-7CC7-48C0-A4F8-81365F858E83}.Debug|AVR.Build.0 = Debug|AVR
+		{C89BED71-7CC7-48C0-A4F8-81365F858E83}.Release|AVR.ActiveCfg = Release|AVR
+		{C89BED71-7CC7-48C0-A4F8-81365F858E83}.Release|AVR.Build.0 = Release|AVR
+		{A9BC87A1-9D82-4AA3-B634-3BCE2EFCCE66}.Debug|AVR.ActiveCfg = Debug|AVR
+		{A9BC87A1-9D82-4AA3-B634-3BCE2EFCCE66}.Debug|AVR.Build.0 = Debug|AVR
+		{A9BC87A1-9D82-4AA3-B634-3BCE2EFCCE66}.Release|AVR.ActiveCfg = Release|AVR
+		{A9BC87A1-9D82-4AA3-B634-3BCE2EFCCE66}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
