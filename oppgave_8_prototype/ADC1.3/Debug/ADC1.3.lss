@@ -1,0 +1,175 @@
+
+ADC1.3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000162  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000000ee  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000002  00800100  00800100  00000162  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000162  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000194  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000028  00000000  00000000  000001d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000006a2  00000000  00000000  000001f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000061d  00000000  00000000  0000089a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000021c  00000000  00000000  00000eb7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000050  00000000  00000000  000010d4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000366  00000000  00000000  00001124  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000056  00000000  00000000  0000148a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000018  00000000  00000000  000014e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  48:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  4c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  50:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  54:	0c 94 48 00 	jmp	0x90	; 0x90 <__vector_21>
+  58:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  5c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  60:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  64:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d4 e0       	ldi	r29, 0x04	; 4
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_clear_bss>:
+  74:	21 e0       	ldi	r18, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	01 c0       	rjmp	.+2      	; 0x7e <.do_clear_bss_start>
+
+0000007c <.do_clear_bss_loop>:
+  7c:	1d 92       	st	X+, r1
+
+0000007e <.do_clear_bss_start>:
+  7e:	a2 30       	cpi	r26, 0x02	; 2
+  80:	b2 07       	cpc	r27, r18
+  82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
+  84:	0e 94 66 00 	call	0xcc	; 0xcc <main>
+  88:	0c 94 75 00 	jmp	0xea	; 0xea <_exit>
+
+0000008c <__bad_interrupt>:
+  8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000090 <__vector_21>:
+
+uint16_t resultat;						//AD-konvertering er 10 bit
+
+
+ISR(ADC_vect)
+{
+  90:	1f 92       	push	r1
+  92:	0f 92       	push	r0
+  94:	0f b6       	in	r0, 0x3f	; 63
+  96:	0f 92       	push	r0
+  98:	11 24       	eor	r1, r1
+  9a:	2f 93       	push	r18
+  9c:	8f 93       	push	r24
+  9e:	9f 93       	push	r25
+	
+	resultat = ADC;						//henter verdier fra ADC-register		
+  a0:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7e0078>
+  a4:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
+  a8:	90 93 01 01 	sts	0x0101, r25	; 0x800101 <_edata+0x1>
+  ac:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+										// resultat = (ADCH<<8) + ADCL; bruk av denne låser programmet til en verdi
+	
+	if (resultat >= 600)
+  b0:	88 35       	cpi	r24, 0x58	; 88
+  b2:	92 40       	sbci	r25, 0x02	; 2
+  b4:	10 f0       	brcs	.+4      	; 0xba <__vector_21+0x2a>
+	{
+		PORTB &= 0b11111110;			//led på
+  b6:	28 98       	cbi	0x05, 0	; 5
+  b8:	01 c0       	rjmp	.+2      	; 0xbc <__vector_21+0x2c>
+	}
+	else
+	{
+		PORTB |= 0b00000001;			//led av
+  ba:	28 9a       	sbi	0x05, 0	; 5
+	}
+
+
+}
+  bc:	9f 91       	pop	r25
+  be:	8f 91       	pop	r24
+  c0:	2f 91       	pop	r18
+  c2:	0f 90       	pop	r0
+  c4:	0f be       	out	0x3f, r0	; 63
+  c6:	0f 90       	pop	r0
+  c8:	1f 90       	pop	r1
+  ca:	18 95       	reti
+
+000000cc <main>:
+
+int main(void)
+{
+	
+	
+	ADMUX = 0b01000001;					// første to bit: bruker AVCC som referanse, men krever ekstern kondensator at AREF pin for å redusere støy
+  cc:	81 e4       	ldi	r24, 0x41	; 65
+  ce:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7e007c>
+										// siste fire bit velger ADC1 altså  PC1
+	
+										//enable ADC, enable ADC interuptflag, enable autotrigger (default auto trigger er fre running mode), setter prescaler til 128 
+	ADCSRA |= (1 << ADEN) | (1 << ADIE) | (1 << ADATE)| (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
+  d2:	ea e7       	ldi	r30, 0x7A	; 122
+  d4:	f0 e0       	ldi	r31, 0x00	; 0
+  d6:	80 81       	ld	r24, Z
+  d8:	8f 6a       	ori	r24, 0xAF	; 175
+  da:	80 83       	st	Z, r24
+		
+	DDRB = 0xFF;						//Setter alle bits i port b som outputs
+  dc:	8f ef       	ldi	r24, 0xFF	; 255
+  de:	84 b9       	out	0x04, r24	; 4
+	
+	ADCSRA |= (1 << ADSC);				//start konvertering
+  e0:	80 81       	ld	r24, Z
+  e2:	80 64       	ori	r24, 0x40	; 64
+  e4:	80 83       	st	Z, r24
+
+	sei();
+  e6:	78 94       	sei
+  e8:	ff cf       	rjmp	.-2      	; 0xe8 <main+0x1c>
+
+000000ea <_exit>:
+  ea:	f8 94       	cli
+
+000000ec <__stop_program>:
+  ec:	ff cf       	rjmp	.-2      	; 0xec <__stop_program>
