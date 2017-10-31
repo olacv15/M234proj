@@ -45,7 +45,7 @@ void setup() {
   defaultMask.flags.extended = 0;
   defaultMask.id = 0;
 
-  Can0.begin(250000, defaultMask, true, true);  //alternativ pin-tilkobling av Can0
+  Can0.begin(250000, defaultMask, false, false);  //alternativ pin-tilkobling av Can0
 
   Can1.begin(250000, defaultMask, false, false);
 

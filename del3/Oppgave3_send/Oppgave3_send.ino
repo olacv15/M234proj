@@ -16,7 +16,6 @@ CAN_message_t led_OnOff;        //Meldign for å styre led av/på
 CAN_message_t MPU6050;          //Melding for å lese av verdiene på MPU6050
 
 
-Metro serialMetro = Metro(1000);
 
 
 struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
@@ -31,10 +30,29 @@ const int toggleId = 0x22;
 const int onOffId = 0x21;
 const int MPU6050Id = 0x20;
 
+IntervalTimer timer1;
+
+
+void ISR()
+{
+  Serial.print("faktisk verdi mpu1.acclZ(): ");
+  Serial.println(mpu1.acclZ());
+
+  mpu6050.acclZ = mpu1.acclZ();
+  memcpy(MPU6050.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
+
+  Can1.write(MPU6050);
+}
+
+
+
+
 void setup() {
   // put your setup code here, to run once:
   delay(2000);
   Serial.println(F("Hello Teensy 3.6 dual CAN Test."));
+
+  timer1.begin(ISR, 1000000);
 
   mpu1.init();
 
@@ -66,6 +84,7 @@ void setup() {
   led_OnOff.ext = 0;
   led_OnOff.id = onOffId;
   led_OnOff.len = 1;
+  led_OnOff.buf[0] = 0;
 
 
 
@@ -73,56 +92,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
- if (serialMetro.check() == 1) 
- {
-  Can1.write(MPU6050);
-  CAN_message_t inMsg;
 
-  Can0.read(inMsg);
-
-  switch (inMsg.id) {
-    case 0x20:
-
-      Serial.println("0x20");
-
-      break;
-
-    case 0x21:
-
-      Serial.println("0x21");
-      
-      break;
-
-    default:
-
-      break;
-  }
+//  Can1.write(led_OnOff);
+//
+//  led_OnOff.buf[0] != led_OnOff.buf[0];
+//
+//  delay(500);
 
 }
 
 
-
-
-
-
-}
-
-
-void imudata()
-{
-  Serial.print("faktisk verdi mpu1.acclZ(): ");
-  Serial.println(mpu1.acclZ());
-
-  mpu6050.acclZ = mpu1.acclZ();
-  memcpy(MPU6050.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
-
-  ACCL tmp;
-
-  memcpy(&tmp, MPU6050.buf, sizeof(tmp));           //Deserialiserer MPU6050
-
-  Serial.print("Overfort verdi av acclZ: ");
-  Serial.println(tmp.acclZ);
-
-  Serial.println("*********************************");
-}
 
