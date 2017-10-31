@@ -15,8 +15,10 @@ CAN_message_t led_OnOff;        //Meldign for å styre led av/på
 
 CAN_message_t MPU6050;          //Melding for å lese av verdiene på MPU6050
 
+CAN_message_t inMsg;            
 
-Metro serialMetro = Metro(1000);
+
+
 
 
 struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
@@ -74,9 +76,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   
- 
-  Can1.write(MPU6050);
-  CAN_message_t inMsg;
 
   Can0.read(inMsg);
 
@@ -131,7 +130,7 @@ void ledOnOff()
 
   else if (inMsg.buf[0] == 1)
   {
-    digitalWrite(13, HIGH)
+    digitalWrite(13, HIGH);
   }
 }
 
