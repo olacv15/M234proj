@@ -73,8 +73,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
- if (serialMetro.check() == 1) 
- {
+  
+ 
   Can1.write(MPU6050);
   CAN_message_t inMsg;
 
@@ -83,13 +83,13 @@ void loop() {
   switch (inMsg.id) {
     case 0x20:
 
-      Serial.println("0x20");
+      IMUread();
 
       break;
 
     case 0x21:
 
-      Serial.println("0x21");
+      ledOnOff();
       
       break;
 
@@ -98,31 +98,40 @@ void loop() {
       break;
   }
 
+  
+  delay(20);
 }
 
 
-
-
-
-
-}
-
-
-void imudata()
+void IMUread()
 {
-  Serial.print("faktisk verdi mpu1.acclZ(): ");
-  Serial.println(mpu1.acclZ());
-
-  mpu6050.acclZ = mpu1.acclZ();
-  memcpy(MPU6050.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
+//  Serial.print("faktisk verdi mpu1.acclZ(): ");
+//  Serial.println(mpu1.acclZ());
+//
+//  mpu6050.acclZ = mpu1.acclZ();
+//  memcpy(MPU6050.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
 
   ACCL tmp;
 
   memcpy(&tmp, MPU6050.buf, sizeof(tmp));           //Deserialiserer MPU6050
 
   Serial.print("Overfort verdi av acclZ: ");
-  Serial.println(tmp.acclZ);
+  Serial.println(tmp.acclZ); 
 
   Serial.println("*********************************");
+}
+
+
+void ledOnOff()
+{
+  if (inMsg.buf[0] == 0)
+  {
+    digitalWrite(13, LOW); 
+  }
+
+  else if (inMsg.buf[0] == 1)
+  {
+    digitalWrite(13, HIGH)
+  }
 }
 
