@@ -6,7 +6,8 @@ MPU6050::MPU6050(){
  
 }
 
-void MPU6050::init(){
+void MPU6050::init()
+{
   Wire.begin();
   Wire.beginTransmission(MPU_addr_);
   Wire.write(PWR_MGMT_1);  // PWR_MGMT_1 registeret
@@ -15,14 +16,26 @@ void MPU6050::init(){
   
 }
 
-float MPU6050::acclZ(){
+float MPU6050::acclZ()
+{
   Wire.beginTransmission(MPU_addr_);
   Wire.write(ACCL_Z_H);  // Starter med å hente høy-bitene til z-aksellerasjonen
   Wire.endTransmission(false);
   Wire.requestFrom(MPU_addr_,2,true);  // ,2, indikerer at den henter både 0x3F og 0x40
-  acclZ_ = Wire.read() << 8;
-  acclZ_ |= Wire.read();
-  actualAcclZ_ = ((float)(acclZ_)*9.81) / 16384.0;
+  rawAcclZ_ = Wire.read() << 8;
+  rawAcclZ_ |= Wire.read();
+  actualAcclZ_ = ((float)(rawAcclZ_)*9.81) / 16384.0;
   return actualAcclZ_;
+}
+
+int16_t MPU6050::rawAcclZ()
+{
+   Wire.beginTransmission(MPU_addr_);
+  Wire.write(ACCL_Z_H);  // Starter med å hente høy-bitene til z-aksellerasjonen
+  Wire.endTransmission(false);
+  Wire.requestFrom(MPU_addr_,2,true);  // ,2, indikerer at den henter både 0x3F og 0x40
+  rawAcclZ_ = Wire.read() << 8;
+  rawAcclZ_ |= Wire.read();
+  return rawAcclZ_;
 }
 

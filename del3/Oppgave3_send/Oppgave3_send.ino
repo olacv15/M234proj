@@ -20,7 +20,7 @@ CAN_message_t MPU6050;          //Melding for å lese av verdiene på MPU6050
 
 struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
 {
-  float acclZ;
+  int16_t acclZ;
 };
 
 
@@ -36,9 +36,9 @@ IntervalTimer timer1;
 void ISR()
 {
   Serial.print("faktisk verdi mpu1.acclZ(): ");
-  Serial.println(mpu1.acclZ());
+  Serial.println(mpu1.rawAcclZ());
 
-  mpu6050.acclZ = mpu1.acclZ();
+  mpu6050.acclZ = mpu1.rawAcclZ();
   memcpy(MPU6050.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
 
   Can1.write(MPU6050);
@@ -84,7 +84,7 @@ void setup() {
   led_OnOff.ext = 0;
   led_OnOff.id = onOffId;
   led_OnOff.len = 1;
-  led_OnOff.buf[0] = 0;
+  led_OnOff.buf[0] = 1;
 
 
 
@@ -93,12 +93,13 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-//  Can1.write(led_OnOff);
-//
-//  led_OnOff.buf[0] != led_OnOff.buf[0];
-//
-//  delay(500);
+  Can1.write(led_OnOff);
 
+  led_OnOff.buf[0] = 1;
+
+  delay(500);
+
+delay(20);
 }
 
 
