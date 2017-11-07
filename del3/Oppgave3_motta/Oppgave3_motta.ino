@@ -23,7 +23,7 @@ float realAcclZ;
 
 float rawToRealAccl(int16_t raw);
 
-struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
+struct ACCL                     //Oppretter struct for deserialisering av MPU6050 signal
 {
   int16_t acclZ;
 };
