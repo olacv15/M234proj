@@ -19,11 +19,13 @@ CAN_message_t inMsg;
 
 
 
+float realAcclZ;
 
+float rawToRealAccl(int16_t raw);
 
 struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
 {
-  float acclZ;
+  int16_t acclZ;
 };
 
 
@@ -77,7 +79,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   
 
-  Can0.read(inMsg);
+  Can1.read(inMsg);
 
   switch (inMsg.id) {
     case 0x20:
@@ -112,12 +114,15 @@ void IMUread()
 
   ACCL tmp;
 
-  memcpy(&tmp, MPU6050.buf, sizeof(tmp));           //Deserialiserer MPU6050
+  memcpy(&tmp, inMsg.buf, sizeof(tmp));           //Deserialiserer MPU6050
 
-  Serial.print("Overfort verdi av acclZ: ");
+  Serial.print("Overfort verdi av acclZ (raw_value) : ");
   Serial.println(tmp.acclZ); 
 
   Serial.println("*********************************");
+
+  Serial.print("acclZ i m/s^2: ");
+  Serial.println(rawToRealAccl(tmp.acclZ)); 
 }
 
 
@@ -132,5 +137,12 @@ void ledOnOff()
   {
     digitalWrite(13, HIGH);
   }
+}
+
+
+float rawToRealAccl(int16_t raw)
+{
+   realAcclZ = ((float)(raw)*9.81) / 16384.0;
+   return realAcclZ;
 }
 
