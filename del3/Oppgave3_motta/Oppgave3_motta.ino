@@ -25,7 +25,8 @@ float rawToRealAccl(int16_t raw);
 
 struct ACCL                     //Oppretter struct for deserialisering av MPU6050 signal
 {
-  int16_t acclZ;
+  int16_t rawAcclZ;
+  double acclZ;
 };
 
 
@@ -34,6 +35,7 @@ ACCL mpu6050;                   //variabel mpu6050 av type ACCL
 const int toggleId = 0x22;
 const int onOffId = 0x21;
 const int MPU6050Id = 0x20;
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -81,6 +83,12 @@ void loop() {
 
   Can1.read(inMsg);
 
+//  Serial.print("message id: ");
+//  Serial.println(inMsg.id);
+//
+//  Serial.print("CAN bus 0: "); 
+
+
   switch (inMsg.id) {
     case 0x20:
 
@@ -100,7 +108,7 @@ void loop() {
   }
 
   
-  delay(20);
+  delay(100);
 }
 
 
@@ -117,12 +125,12 @@ void IMUread()
   memcpy(&tmp, inMsg.buf, sizeof(tmp));           //Deserialiserer MPU6050
 
   Serial.print("Overfort verdi av acclZ (raw_value) : ");
-  Serial.println(tmp.acclZ); 
+  Serial.println(tmp.rawAcclZ); 
 
   Serial.println("*********************************");
 
   Serial.print("acclZ i m/s^2: ");
-  Serial.println(rawToRealAccl(tmp.acclZ)); 
+  Serial.println(rawToRealAccl(tmp.acclZ));
 }
 
 
