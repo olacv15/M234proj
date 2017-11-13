@@ -19,13 +19,13 @@ class MPU6050{
 
   void init();
   
-  float acclZ();
+  double acclZ();
 
   int16_t rawAcclZ();
   
   private:
   int16_t rawAcclZ_;
-  float actualAcclZ_;
+  double actualAcclZ_;
   const uint8_t MPU_addr_ = 0x68;  // I2C address of the MPU-6050
 };
 

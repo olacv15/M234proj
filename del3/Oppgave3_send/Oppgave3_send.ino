@@ -20,7 +20,8 @@ CAN_message_t MPU6050;          //Melding for å lese av verdiene på MPU6050
 
 struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
 {
-  int16_t acclZ;
+  int16_t rawAcclZ;
+  double acclZ;
 };
 
 

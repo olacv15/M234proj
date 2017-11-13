@@ -16,7 +16,7 @@ void MPU6050::init()
   
 }
 
-float MPU6050::acclZ()
+double MPU6050::acclZ()
 {
   Wire.beginTransmission(MPU_addr_);
   Wire.write(ACCL_Z_H);  // Starter med å hente høy-bitene til z-aksellerasjonen
@@ -24,7 +24,7 @@ float MPU6050::acclZ()
   Wire.requestFrom(MPU_addr_,2,true);  // ,2, indikerer at den henter både 0x3F og 0x40
   rawAcclZ_ = Wire.read() << 8;
   rawAcclZ_ |= Wire.read();
-  actualAcclZ_ = ((float)(rawAcclZ_)*9.81) / 16384.0;
+  actualAcclZ_ = ((double)(rawAcclZ_)*9.81) / 16384.0;
   return actualAcclZ_;
 }
 
