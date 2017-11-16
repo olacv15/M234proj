@@ -4,14 +4,6 @@
 
 
 
-
-
-
-
-// dumt å bruke millis?? har ingen oversikt over størrelse på verdi??*********_*__*_*_*_*_*_*_*_
-
-
-
 FirstOrderFilter lavpassfilter(10);
 FirstOrderFilter lapass2(10);
 FirstOrderFilter lapass3(10);
