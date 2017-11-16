@@ -37,11 +37,13 @@ struct rawAccl
 
 rawAccl mpu6050;                   //variabel mpu6050 av type ACCL
 
-const int MPU6050RawId = 0x29;
+const uint32_t mpu6050RawId = 0x29;
+
+const uint32_t acclzId = 0x30;
 
 IntervalTimer timer1;
 
-void ISR()
+void ISR()    //Rå data sendes med 100 Hz
 {
   mpu6050.rawAcclZ = filter1.lavPass(mpu1.rawAcclZ());
   memcpy(MPU6050_raw.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
@@ -69,7 +71,7 @@ void setup() {
   defaultMask.flags.extended = 0;
   defaultMask.id = 0;
 
-  Can0.begin(250000, defaultMask, false, false);  //alternativ pin-tilkobling av Can0
+  Can0.begin(250000, defaultMask, false, false);  
 
   Can1.begin(250000, defaultMask, false, false);
 
@@ -84,7 +86,7 @@ void setup() {
   digitalWrite(13, LOW);
 
   MPU6050_raw.ext = 0;
-  MPU6050_raw.id = MPU6050RawId;
+  MPU6050_raw.id = mpu6050RawId;
   MPU6050_raw.len = sizeof(mpu6050);
 }
 
@@ -95,7 +97,7 @@ void loop() {
   Can1.read(inMsg);
 
   switch (inMsg.id) {
-    case 0x30:
+    case acclzId:           //0x30
 
       servoActuation();
 
@@ -118,7 +120,7 @@ void servoActuation()
 
   double mapAcclZ = mapp(tmp.acclZ, -9.81, 9.81, 0, 180);
 
-  servo1.write(static_cast<int>(mapAcclZ));
+  servo1.write(static_cast<int>(mapAcclZ));       //Skriver en mappet versjon av mpu6050 signalet til servoen
 }
 
 

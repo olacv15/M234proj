@@ -1,6 +1,6 @@
 #include "MPU6050.h"
 #include "FlexCAN.h"
-#include "Metro.h"
+
 
 #ifndef __MK66FX1M0__
 #error "Teensy 3.6 with dual CAN bus is required to run this example"
@@ -18,27 +18,24 @@ CAN_message_t MPU6050;          //Melding for å lese av verdiene på MPU6050
 
 
 
-struct ACCL                     //Oppretter struct for serialisering av MPU6050 signal
+struct accl                     //Oppretter struct for serialisering av MPU6050 signal
 {
   int16_t rawAcclZ;
   double acclZ;
 };
 
 
-ACCL mpu6050;                   //variabel mpu6050 av type ACCL
+accl mpu6050;                   //variabel mpu6050 av type accl
 
-const int toggleId = 0x22;
-const int onOffId = 0x21;
-const int MPU6050Id = 0x20;
+const uint32_t toggleId = 0x22;
+const uint32_t onOffId = 0x21;
+const uint32_t MPU6050Id = 0x20;
 
 IntervalTimer timer1;
 
 
 void ISR()
 {
-  Serial.print("faktisk verdi mpu1.acclZ(): ");
-  Serial.println(mpu1.rawAcclZ());
-
   mpu6050.acclZ = mpu1.rawAcclZ();
   memcpy(MPU6050.buf, &mpu6050, sizeof(mpu6050));   //Serialiserer MPU6050
 
@@ -96,11 +93,9 @@ void loop() {
 
   Can1.write(led_OnOff);
 
-  led_OnOff.buf[0] = 1;
+  led_OnOff.buf[0] != led_OnOff.buf[0];   //endrer tilstand på led ved hver gjennomkjøring
 
   delay(500);
-
-delay(20);
 }
 
 
